@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+  <h1 class="mt-5">Welcome, Customer!</h1>
+  <p>This is the customer home page.</p>
+  <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
+</div>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

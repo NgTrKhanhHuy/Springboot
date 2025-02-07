@@ -11,9 +11,9 @@ public class CartService {
         this.cartRepository = cartRepository;
     }
 
-    public Cart getCartByUser(User user) {
-        return cartRepository.findById(user.getId()).orElse(null);
-    }
+//    public Cart getCartByUser(User user) {
+//        return cartRepository.findById(user.getId()).orElse(null);
+//    }
 
     public Cart saveCart(Cart cart) {
         return cartRepository.save(cart);
