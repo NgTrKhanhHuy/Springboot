@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết sản phẩm</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+<!-- Include header fragment -->
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container mt-3">
+    <h2 th:text="${product.name}">Tên sản phẩm</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <img th:src="${product.imageUrl}" class="img-fluid" alt="Product Image">
+        </div>
+        <div class="col-md-6">
+            <p><strong>Mô tả:</strong> <span th:text="${product.description}"></span></p>
+            <p><strong>Giá:</strong> <span th:text="${product.price} + ' VND'"></span></p>
+            <!-- Nếu có thông tin khác như Category, bạn có thể hiển thị thêm -->
+        </div>
+    </div>
+    <br/>
+    <a th:href="@{/home}" class="btn btn-secondary">Quay lại</a>
+</div>
+
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

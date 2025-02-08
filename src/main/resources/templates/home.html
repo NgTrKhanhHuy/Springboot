@@ -6,11 +6,13 @@
   <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
+<div th:replace="fragments/header :: header"></div>
+
 <div class="container">
   <!-- Hiển thị tên người dùng nếu đã đăng nhập -->
-  <h1 class="mt-5" th:text="'Welcome, ' + ${#authentication.name} + '!'">Welcome, Customer!</h1>
   <p>This is the customer home page.</p>
-  <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
+  <a th:href="@{/products}" class="btn btn-secondary">Sản phẩm</a>
+
 </div>
 <script th:src="@{/js/bootstrap.min.js}"></script>
 </body>

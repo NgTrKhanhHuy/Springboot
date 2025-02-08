@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- Đây là fragment header -->
+<div th:fragment="header">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/home">My Store</a>
+      <h1 class="mt-5" th:text="'Welcome, ' + ${#authentication.name} + '!'">Welcome, Customer!</h1>
+      <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <form class="d-flex" th:action="@{/products}" method="get">
+          <input class="form-control me-2" type="search" name="keyword" placeholder="Tìm kiếm sản phẩm"
+                 th:value="${keyword}" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+</div>
+</body>
+</html>

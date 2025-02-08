@@ -26,6 +26,9 @@ public class ProductService {
     public Page<Product> findPaginatedProducts(Pageable pageable) {
         return productRepository.findAll(pageable);
     }
+    public Page<Product> searchProducts(String keyword, Pageable pageable) {
+        return productRepository.findByNameContainingIgnoreCase(keyword, pageable);
+    }
     public Product findById(Long id) {
         return productRepository.findById(id).orElse(null);
     }
