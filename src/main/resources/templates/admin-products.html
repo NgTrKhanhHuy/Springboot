@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Products</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+  <h2 class="mt-3">Danh sách Sản phẩm</h2>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Tên sản phẩm</th>
+      <th>Giá</th>
+      <th>Loại sản phẩm</th>
+      <th>Hình ảnh</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${productPage.content}">
+      <td th:text="${product.id}"></td>
+      <td th:text="${product.name}"></td>
+      <td th:text="${product.price}"></td>
+      <td th:text="${product.category != null ? product.category.name : 'Chưa có loại'}"></td>
+      <td th:if="${product.imageUrl} != null">
+        <img th:src="${product.imageUrl}" alt="Product Image" style="width:100px;" />
+      </td>
+      <td th:if="${product.imageUrl} == null">No Image</td>
+    </tr>
+    </tbody>
+  </table>
+  <a th:href="@{/admin/products/add}" class="btn btn-primary">add product</a>
+
+
+  <!-- Phân trang -->
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item" th:classappend="${productPage.first} ? 'disabled'">
+        <a class="page-link" th:href="@{/admin/products(page=${productPage.number - 1}, size=${productPage.size})}">Previous</a>
+      </li>
+      <li class="page-item" th:each="i : ${#numbers.sequence(0, productPage.totalPages - 1)}"
+          th:classappend="${productPage.number == i} ? 'active'">
+        <a class="page-link" th:href="@{/admin/products(page=${i}, size=${productPage.size})}"
+           th:text="${i + 1}"></a>
+      </li>
+      <li class="page-item" th:classappend="${productPage.last} ? 'disabled'">
+        <a class="page-link" th:href="@{/admin/products(page=${productPage.number + 1}, size=${productPage.size})}">Next</a>
+      </li>
+    </ul>
+  </nav>
+
+  <a th:href="@{/admin/admin-home}" class="btn btn-primary">Back to Admin Home</a>
+</div>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

@@ -8,7 +8,12 @@
 <body>
 <div class="container">
   <h1 class="mt-5">Welcome, Admin!</h1>
-  <p>This is the admin home page.</p>
+  <p>Chào mừng bạn đến với trang quản trị.</p>
+  <ul>
+    <li><a th:href="@{/admin/products}">Manage Products</a></li>
+    <li><a th:href="@{/admin/orders}">Manage Orders</a></li>
+    <!-- Thêm các link khác nếu cần -->
+  </ul>
   <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
 </div>
 <script th:src="@{/js/bootstrap.min.js}"></script>

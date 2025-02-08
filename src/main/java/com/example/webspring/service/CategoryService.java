@@ -1,17 +1,16 @@
 package com.example.webspring.service;
 
-import com.example.webspring.entity.*;
-import com.example.webspring.repository.*;
+import com.example.webspring.entity.Category;
+import com.example.webspring.repository.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class CategoryService {
-    private final CategoryRepository categoryRepository;
 
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
@@ -20,9 +19,4 @@ public class CategoryService {
     public Category getCategoryById(Long id) {
         return categoryRepository.findById(id).orElse(null);
     }
-
-    public Category saveCategory(Category category) {
-        return categoryRepository.save(category);
-    }
 }
-

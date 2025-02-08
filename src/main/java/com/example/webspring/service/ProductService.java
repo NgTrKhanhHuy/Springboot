@@ -1,25 +1,29 @@
 package com.example.webspring.service;
-import com.example.webspring.entity.*;
-import com.example.webspring.repository.*;
+
+import com.example.webspring.entity.Product;
+import com.example.webspring.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.List;
+
 @Service
 public class ProductService {
-    private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    @Autowired
+    private ProductRepository productRepository;
+
+    public Product saveProduct(Product product) {
+        return productRepository.save(product);
     }
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
-    public Product getProductById(Long id) {
-        return productRepository.findById(id).orElse(null);
-    }
-
-    public Product saveProduct(Product product) {
-        return productRepository.save(product);
+    // Phương thức phân trang sản phẩm
+    public Page<Product> findPaginatedProducts(Pageable pageable) {
+        return productRepository.findAll(pageable);
     }
 }
