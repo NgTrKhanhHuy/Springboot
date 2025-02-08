@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 
 @Data
 public class ProductDTO {
+    private Long id; // Để xác định sản phẩm cần sửa
+
     @NotBlank(message = "Tên sản phẩm không được để trống")
     private String name;
 
@@ -23,9 +25,22 @@ public class ProductDTO {
     // Ảnh sản phẩm – bắt buộc chọn file
 //    @NotNull(message = "Vui lòng chọn ảnh cho sản phẩm")
     private MultipartFile image;
+
+    // Field ẩn để chứa đường dẫn ảnh cũ (nếu không upload ảnh mới, dùng giá trị này)
+    private String oldImg;
     // Loại sản phẩm (chọn qua select)
     @NotNull(message = "Vui lòng chọn loại sản phẩm")
     private Long categoryId;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -66,6 +81,14 @@ public class ProductDTO {
         this.categoryId = categoryId;
     }
 
+    public String getOldImg() {
+        return oldImg;
+    }
+
+    public void setOldImg(String oldImg) {
+        this.oldImg = oldImg;
+    }
+
     @Override
     public String toString() {
         return "ProductDTO{" +
@@ -73,6 +96,8 @@ public class ProductDTO {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", image=" + image +
+                ", oldImg='" + oldImg + '\'' +
+                ", categoryId=" + categoryId +
                 '}';
     }
 }

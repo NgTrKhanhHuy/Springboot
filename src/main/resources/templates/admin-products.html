@@ -16,6 +16,7 @@
       <th>Giá</th>
       <th>Loại sản phẩm</th>
       <th>Hình ảnh</th>
+      <th>Hành động</th> <!-- Thêm cột hành động -->
     </tr>
     </thead>
     <tbody>
@@ -28,6 +29,10 @@
         <img th:src="${product.imageUrl}" alt="Product Image" style="width:100px;" />
       </td>
       <td th:if="${product.imageUrl} == null">No Image</td>
+      <!-- Thêm cột nút sửa -->
+      <td>
+        <a th:href="@{/admin/products/edit/{id}(id=${product.id})}" class="btn btn-warning">Sửa</a>
+      </td>
     </tr>
     </tbody>
   </table>
