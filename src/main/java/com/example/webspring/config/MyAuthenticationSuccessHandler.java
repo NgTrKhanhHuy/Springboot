@@ -33,7 +33,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
         if (isAdmin) {
-            response.sendRedirect("/admin-home");
+            response.sendRedirect("/admin/admin-home");
         } else {
             response.sendRedirect("/home");
         }

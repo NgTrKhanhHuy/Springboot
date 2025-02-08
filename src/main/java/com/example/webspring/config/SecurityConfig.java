@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .csrf().disable()  // Tùy chỉnh CSRF nếu cần
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/register", "/login", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")   // Chỉ ADMIN mới được truy cập URL bắt đầu bằng /admin/
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/login")

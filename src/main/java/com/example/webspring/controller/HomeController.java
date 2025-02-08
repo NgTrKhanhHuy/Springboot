@@ -11,7 +11,7 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("/admin-home")
+    @GetMapping("/admin/admin-home")
     public String adminHome() {
         return "admin-home";
     }

@@ -1,7 +1,10 @@
 package com.example.webspring.service;
 
+import com.example.webspring.config.CustomUserDetails;
 import com.example.webspring.entity.User;
 import com.example.webspring.repository.UserRepository;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,13 +29,21 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         System.out.println("CustomUserDetailsService: Found user: " + user);
 
-        List<SimpleGrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toList());
+//        List<SimpleGrantedAuthority> authorities = user.getRoles().stream()
+//                .map(role -> new SimpleGrantedAuthority(role.getName()))
+//                .collect(Collectors.toList());
 
-        return new org.springframework.security.core.userdetails.User(
+        return new CustomUserDetails(
                 user.getEmail(),
+                user.getUsername(),
                 user.getPassword(),
-                authorities);
+                getAuthorities(user));
+
+    }
+    private List<GrantedAuthority> getAuthorities(User user) {
+        // Bạn có thể lấy quyền (roles) từ user và chuyển nó thành quyền (authority)
+        return AuthorityUtils.createAuthorityList(user.getRoles().stream()
+                .map(role -> role.getName())
+                .toArray(String[]::new));
     }
 }
