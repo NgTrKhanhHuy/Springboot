@@ -65,9 +65,13 @@ public class CartItemService {
     public void clearCart(User user) {
         Cart cart = getOrCreateCart(user);
         if (cart.getCartItems() != null && !cart.getCartItems().isEmpty()) {
-            cartItemRepository.deleteAll(cart.getCartItems());
+            // Xóa hết các CartItem khỏi danh sách trong Cart
+            cart.getCartItems().clear();
+            // Lưu lại Cart để Hibernate nhận ra các phần tử bị orphan và xóa chúng
+            cartRepository.save(cart);
         }
     }
+
 
     /**
      * Phương thức trợ giúp: lấy giỏ hàng của người dùng.

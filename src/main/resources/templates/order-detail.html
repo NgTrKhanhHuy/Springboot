@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết đơn hàng</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+<!-- Include header fragment nếu có -->
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container mt-3">
+    <h2>Chi tiết đơn hàng</h2>
+
+    <!-- Thông tin đơn hàng -->
+    <div class="mb-3">
+        <p><strong>Mã đơn hàng:</strong> <span th:text="${order.id}"></span></p>
+        <p><strong>Tổng tiền:</strong> <span th:text="${order.totalAmount}"></span> VND</p>
+        <p><strong>Trạng thái đơn hàng:</strong> <span th:text="${order.status}"></span></p>
+    </div>
+
+    <!-- Thông tin thanh toán -->
+    <div class="mb-3" th:if="${payment != null}">
+        <h4>Thông tin thanh toán</h4>
+        <p><strong>Phương thức thanh toán:</strong> <span th:text="${payment.paymentMethod}"></span></p>
+        <p><strong>Trạng thái thanh toán:</strong> <span th:text="${payment.paymentStatus}"></span></p>
+    </div>
+
+    <!-- Chi tiết sản phẩm trong đơn hàng -->
+    <div class="mb-3">
+        <h4>Chi tiết sản phẩm</h4>
+        <div th:if="${error}" class="alert alert-danger">
+            <p th:text="${error}"></p>
+        </div>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Giá (VND)</th>
+                <th>Tổng (VND)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${orderItems}">
+                <td th:text="${item.product.name}"></td>
+                <td th:text="${item.quantity}"></td>
+                <td th:text="${item.product.price}"></td>
+                <td th:text="${item.price}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a th:href="@{/orders}" class="btn btn-secondary">Quay lại danh sách đơn hàng</a>
+</div>
+
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

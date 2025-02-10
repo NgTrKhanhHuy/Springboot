@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Đơn hàng của bạn</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+<!-- Include header fragment nếu có -->
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container mt-3">
+  <h2>Đơn hàng của bạn</h2>
+
+  <!-- Nếu không có đơn hàng -->
+  <div th:if="${#lists.isEmpty(orderSummaries)}">
+    <p>Bạn chưa có đơn hàng nào.</p>
+  </div>
+  <div th:if="${error}" class="alert alert-danger">
+    <p th:text="${error}"></p>
+  </div>
+  <!-- Nếu có đơn hàng -->
+  <div th:if="${!#lists.isEmpty(orderSummaries)}">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Mã đơn hàng</th>
+        <th>Tổng tiền</th>
+        <th>Trạng thái giao</th>
+        <th>Trạng thái thanh toán</th>
+        <th>Hành động</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="summary : ${orderSummaries}">
+        <td th:text="${summary.orderId}"></td>
+        <td th:text="${summary.totalAmount}"></td>
+        <td th:text="${summary.orderStatus}"></td>
+        <td th:text="${summary.paymentStatus}"></td>
+        <td>
+          <!-- Các nút thao tác: Hủy đơn, Xem chi tiết (sẽ triển khai sau) -->
+          <form th:action="@{/orders/cancel/{orderId}(orderId=${summary.orderId})}" method="post">
+            <button class="btn btn-danger btn-sm">Hủy đơn</button>
+          </form>
+          <form th:action="@{/orders/{orderId}(orderId=${summary.orderId})}" method="get">
+            <button type="submit" class="btn btn-primary btn-sm">Xem chi tiết</button>
+          </form>
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

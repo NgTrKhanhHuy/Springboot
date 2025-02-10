@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản lý đơn hàng</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+<!-- Include header fragment nếu có -->
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container mt-3">
+  <h2>Danh sách đơn hàng</h2>
+
+  <!-- Hiển thị flash message lỗi nếu có -->
+  <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Mã đơn hàng</th>
+      <th>Email khách hàng</th>
+      <th>Tổng tiền</th>
+      <th>Trạng thái đơn hàng</th>
+      <th>Trạng thái thanh toán</th>
+      <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="summary : ${orderSummaries}">
+      <td th:text="${summary.orderId}"></td>
+      <td th:text="${summary.userEmail}"></td>
+<!--      <td th:text="${#numbers.formatDecimal(summary.totalAmount, 2)}"></td>-->
+      <td th:text="${summary.totalAmount}"></td>
+
+      <td th:text="${summary.orderStatus}"></td>
+      <td th:text="${summary.paymentStatus}"></td>
+      <td>
+        <!-- Nút xác nhận đơn hàng (chỉ hiển thị nếu trạng thái hiện tại không phải 'đang giao' hoặc 'đã hủy') -->
+        <form th:action="@{'/admin/orders/confirm/' + ${summary.orderId}}" method="post" style="display:inline;">
+          <button type="submit" class="btn btn-success btn-sm">Xác nhận</button>
+        </form>
+        <!-- Nút hủy đơn hàng (chỉ hiển thị nếu trạng thái cho phép hủy) -->
+        <form th:action="@{'/admin/orders/cancel/' + ${summary.orderId}}" method="post" style="display:inline;">
+          <button type="submit" class="btn btn-danger btn-sm">Hủy đơn</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

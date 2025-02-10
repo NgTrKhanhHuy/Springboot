@@ -5,6 +5,7 @@ import com.example.webspring.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -13,7 +14,6 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
-
     public Product saveProduct(Product product) {
         return productRepository.save(product);
     }

@@ -93,7 +93,7 @@ public class CheckOutController {
         // Tạo Order
         Order order = new Order();
         order.setUser(currentUser);
-        order.setStatus("Đang giao"); // Đơn hàng đang được giao
+        order.setStatus("Chờ xác nhận"); // Đơn hàng chờ xác nhận
         order.setTotalAmount(totalPrice);
         order = orderRepository.save(order);
 
