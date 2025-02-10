@@ -5,9 +5,7 @@ import com.example.webspring.entity.Product;
 import com.example.webspring.entity.User;
 import com.example.webspring.config.CustomUserDetails;
 import com.example.webspring.repository.UserRepository;
-import com.example.webspring.service.CartItemService;
-import com.example.webspring.service.CartService;
-import com.example.webspring.service.ProductService;
+import com.example.webspring.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -32,11 +30,16 @@ public class CartController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserService userService;
+
     // Hiển thị trang giỏ hàng
     @GetMapping("/cart")
     public String showCart(Model model, Authentication authentication) {
         // Ép kiểu principal sang CustomUserDetails để lấy đối tượng User đầy đủ
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+      //  CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        CustomUserDetails userDetails = userService.getCurrentUserDetails();
+
         Long userId = userDetails.getId();
         System.out.println("User ID: " + userId);
 //        System.out.println("User ID: " + currentUser.getId()); // Kiểm tra user đã có id hay chưa
@@ -75,7 +78,9 @@ public class CartController {
     public String addToCart(@PathVariable("productId") Long productId,
                             Authentication authentication,
                             Model model) {
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+       // CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        CustomUserDetails userDetails = userService.getCurrentUserDetails();
+
         Long userId= userDetails.getId();
         // Lấy User đầy đủ từ DB
         User currentUser = userRepository.findById(userId).orElse(null);
@@ -99,7 +104,10 @@ public class CartController {
                                  @RequestParam("quantity") int quantity,
                                  Authentication authentication,
                                  Model model) {
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+       // CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        CustomUserDetails userDetails = userService.getCurrentUserDetails();
+
+
         Long userId = userDetails.getId();
         User currentUser = userRepository.findById(userId).orElse(null);
         if (currentUser == null) {
@@ -119,7 +127,9 @@ public class CartController {
     public String deleteCartItem(@PathVariable("productId") Long productId,
                                  Authentication authentication,
                                  Model model) {
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+       // CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        CustomUserDetails userDetails = userService.getCurrentUserDetails();
+
         Long userId = userDetails.getId();
         User currentUser = userRepository.findById(userId).orElse(null);
         if (currentUser == null) {
