@@ -27,4 +27,44 @@ public class CartItem {
 
     private int quantity;
     private BigDecimal price;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public BigDecimal getPrice() {
+        return product.getPrice().multiply(BigDecimal.valueOf(getQuantity()));
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 }

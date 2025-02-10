@@ -23,10 +23,10 @@ public class SecurityConfig {
     }
 
     // Đăng ký CustomUserDetailsService, Spring sẽ inject UserRepository
-    @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository) {
-        return new CustomUserDetailsService(userRepository);
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService(UserRepository userRepository) {
+//        return new CustomUserDetailsService(userRepository);
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

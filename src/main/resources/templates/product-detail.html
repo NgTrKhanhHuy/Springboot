@@ -20,6 +20,12 @@
             <p><strong>Giá:</strong> <span th:text="${product.price} + ' VND'"></span></p>
             <!-- Nếu có thông tin khác như Category, bạn có thể hiển thị thêm -->
         </div>
+        <div class="product-actions">
+            <!-- Thêm sản phẩm vào giỏ hàng -->
+            <form action="#" th:action="@{/cart/add/{productId}(productId=${product.id})}" method="post">
+                <button type="submit">Thêm vào giỏ hàng</button>
+            </form>
+        </div>
     </div>
     <br/>
     <a th:href="@{/home}" class="btn btn-secondary">Quay lại</a>

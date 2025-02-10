@@ -1,0 +1,73 @@
+  <!DOCTYPE html>
+  <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <title>Giỏ hàng của bạn</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+  </head>
+  <body>
+  <!-- Include header fragment (giả sử file fragments/header.html có fragment 'header') -->
+  <div th:replace="fragments/header :: header"></div>
+
+  <div class="container mt-3">
+    <h2>Giỏ hàng của bạn</h2>
+
+    <!-- Nếu giỏ hàng trống -->
+    <div th:if="${#lists.isEmpty(cartItems)}">
+      <p>Giỏ hàng của bạn đang trống.</p>
+    </div>
+
+    <!-- Nếu có sản phẩm trong giỏ -->
+    <div th:if="${cartItems != null && !#lists.isEmpty(cartItems)}">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Hình ảnh</th>
+          <th>Tên sản phẩm</th>
+          <th>Số lượng</th>
+          <th>Giá</th>
+          <th>Tổng</th>
+          <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${cartItems}">
+          <td>
+            <img th:src="${item.product.imageUrl}" alt="Product Image" style="width: 100px;"/>
+          </td>
+          <td th:text="${item.product.name}">Tên sản phẩm</td>
+          <td>
+            <!-- Input số lượng: sau này sẽ được cập nhật qua AJAX hoặc form submit -->
+            <form th:action="@{'/cart/update/' + ${item.product.id}}" method="post" style="display:inline;">
+              <input type="number" class="form-control" name="quantity" th:value="${item.quantity}" min="1" style="width:80px; display:inline-block;"/>
+              <button type="submit" class="btn btn-primary btn-sm">Cập nhật</button>
+            </form>
+          </td>
+          <td th:text="${item.product.price}">Giá</td>
+          <td th:text="${item.price}">Tổng</td>
+          <td>
+            <!-- Nút cập nhật số lượng (sẽ xử lý update sau) -->
+            <!-- Mỗi dòng là 1 form để cập nhật số lượng -->
+            <!-- Nút xóa sản phẩm khỏi giỏ hàng (sẽ xử lý xóa sau) -->
+            <!-- Nút xóa sản phẩm khỏi giỏ hàng -->
+            <form th:action="@{'/cart/delete/' + ${item.product.id}}" method="post" style="display:inline;">
+              <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+       Hiển thị tổng số tiền của giỏ hàng
+      <div class="text-end">
+        <h4>Tổng số tiền:
+          <span th:text="${totalPrice}"></span> VND
+
+        </h4>
+      </div>
+    </div>
+  </div>
+
+  <script th:src="@{/js/bootstrap.min.js}"></script>
+  </body>
+  </html>

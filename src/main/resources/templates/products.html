@@ -20,6 +20,7 @@
           <p class="card-text" th:text="${product.description}"></p>
           <p class="card-text"><strong th:text="${product.price} + ' VND'"></strong></p>
           <a th:href="@{'/products/' + ${product.id}}" class="btn btn-primary">Chi tiết</a>
+          /cart/add/{productId}
         </div>
       </div>
     </div>
