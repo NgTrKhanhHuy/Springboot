@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông tin người dùng</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+<!-- Include header fragment nếu có -->
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container mt-3">
+    <h2>Thông tin người dùng</h2>
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <td th:text="${user.id}"></td>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <td th:text="${user.username}"></td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td th:text="${user.email}"></td>
+        </tr>
+        <tr>
+            <th>Mật khẩu</th>
+            <td th:text="${user.password}"></td>
+        </tr>
+        <!-- Bạn có thể hiển thị các thông tin khác nếu cần -->
+    </table>
+    <!-- Nút đổi mật khẩu (sẽ liên kết đến chức năng đổi mật khẩu sau) -->
+    <a th:href="@{/user/change-password}" class="btn btn-primary">Đổi mật khẩu</a>
+</div>
+
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>
