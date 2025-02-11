@@ -7,7 +7,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-    @Async
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // Các file từ thư mục uploads được truy cập qua URL /uploads/**
