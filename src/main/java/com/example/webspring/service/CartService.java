@@ -7,6 +7,7 @@ import com.example.webspring.entity.User;
 import com.example.webspring.repository.CartItemRepository;
 import com.example.webspring.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -34,6 +35,7 @@ public class CartService {
     }
 
     // Thêm sản phẩm vào giỏ hàng với số lượng mặc định
+    @Async
     public void addToCart(User user, Product product, int quantity) {
         Cart cart = getCartByUser(user);
         // Kiểm tra xem sản phẩm đã có trong giỏ chưa

@@ -7,6 +7,8 @@ import com.example.webspring.config.CustomUserDetails;
 import com.example.webspring.repository.UserRepository;
 import com.example.webspring.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,7 +77,8 @@ public class CartController {
 
     // Thêm sản phẩm vào giỏ hàng (số lượng mặc định = 1)
     @PostMapping("/cart/add/{productId}")
-    public String addToCart(@PathVariable("productId") Long productId,
+    @ResponseBody
+    public int addToCart(@PathVariable("productId") Long productId,
                             Authentication authentication,
                             Model model) {
        // CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
@@ -85,17 +88,22 @@ public class CartController {
         // Lấy User đầy đủ từ DB
         User currentUser = userRepository.findById(userId).orElse(null);
         if (currentUser == null) {
-            model.addAttribute("error", "User not found");
-            return "redirect:/login";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("User not found").getStatusCodeValue();
         }
         // Lấy sản phẩm cần thêm từ DB
         Product product = productService.findById(productId);
         if (product == null) {
-            model.addAttribute("error", "Sản phẩm không tồn tại!");
-            return "redirect:/products";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Sản phẩm không tồn tại!").getStatusCodeValue();
         }
-        cartService.addToCart(currentUser, product, 1);
-        return "redirect:/cart";
+        int quantity= 1;
+        cartService.addToCart(currentUser, product, quantity);
+     //   return "redirect:/cart";
+        // Sau khi thêm, trả về số lượng sản phẩm trong giỏ hàng
+        System.out.println(cartService.getCartItemCount(currentUser)+quantity);
+        return cartService.getCartItemCount(currentUser)+quantity;
+
     }
 
     // Cập nhật số lượng cho sản phẩm trong giỏ hàng

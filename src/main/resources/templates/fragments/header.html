@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
 <body>
 <!-- Đây là fragment header -->
 <div th:fragment="header">
@@ -20,11 +25,19 @@
         </form>
       </div>
       <div class="header">
-        <a href="/cart">Giỏ hàng (<span th:text="${cartItemCount}">0</span>)</a>
+        <a href="/cart">Giỏ hàng (<span id="cartItemCount" th:text="${cartItemCount}">0</span>)</a>
       </div>
 
     </div>
   </nav>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script th:src="@{/js/app.js}"></script>
+
 </body>
 </html>
